@@ -26,3 +26,5 @@ Sistemas operativos aptos para ICAAD Software
 - Windows Server 2016 (En todas sus versiones)
 - Windows Server 2012 (Service Packs KB2919442 y KB2919335 necesarios)
  
+ICAAD Software se encuentra actualmente en la versión alpha 0.12.8, con el tiempo se irán implementando 
+nuevos menús y submenús con diferentes opciones.
