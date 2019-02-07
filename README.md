@@ -1,4 +1,4 @@
-# ICAAD-Software
+# ICAAD Software
 ICAAD Software es un asistente de instalación, configuración y administración de Active Directory. 
 
 Básicamente se crea una capa gráfica con diferentes menús y submenús con múltiples opciones para la administración de Active Directory
