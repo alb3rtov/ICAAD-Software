@@ -2,7 +2,7 @@
 ICAAD Software es un asistente de instalación, configuración y administración de Active Directory. 
 
 Básicamente se crea una capa gráfica con diferentes menús y submenús con múltiples opciones para la administración de Active Directory
-y “por debajo” se ejecutan los comandos de Powershell según las indicaciones del administrador.
+y mediante el backend se procesan los comandos de Powershell según las indicaciones establecidas en el frontend del administrador .
 
 La principal utilidad de este proyecto es la de minimizar las tareas al administrador, creando una interfaz donde podremos encontrar
 múltiples opciones en una misma consola de administración.
