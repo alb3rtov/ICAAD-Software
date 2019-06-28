@@ -26,4 +26,4 @@ Nowadays, ICAAD Software is in development, as a alpha version 0.12.8 and there 
 
 Visit the [Wiki](https://github.com/alb3rtov/ICAAD-Software/wiki) more information.
 
-<img src=https://i.imgur.com/nsRCk6p.png" alt="drawing" width="200"/>
+<img src="https://i.imgur.com/nsRCk6p.png" width="200"/>
