@@ -2,12 +2,14 @@
 ICAAD Software is a assitant of installation, configuration and management of Active Directory.
 
 Basically, this software use a graphic layer with diferents menus with sereval options for the managament of Active Directory and through backend it process all the cmdlets according to the intructions set in frontend by the manager.
-<br>
-<br>
 
 The main utility of this project is reduce the tasks of the manager, creating a interface where can find several options, all in one same console of management.
 
 The development of this software firstly was set for versions of Windows Server Core (without desktop experience). In this way, the manager shouldn't know all the cmdlets of PowerShell about the basic management of a Domain Controller. 
+<br>
+<br>
+
+
 
 <img src="https://i.imgur.com/nsRCk6p.png" align="right" width="450"/>
 
