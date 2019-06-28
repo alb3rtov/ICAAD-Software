@@ -5,7 +5,7 @@ Basically, this software use a graphic layer with diferents menus with sereval o
 
 The main utility of this project is reduce the tasks of the manager, creating a interface where can find several options, all in one same console of management.
 
-The development of this software firstly was set for versions of Windows Server Core (without desktop experience). In this way, the manager shouldn't know all the cmdlets of PowerShell about the basic management of a Domain Controller.
+The development of this software firstly was set for versions of Windows Server Core (without desktop experience). In this way, the manager shouldn't know all the cmdlets of PowerShell about the basic management of a Domain Controller. <img src="https://i.imgur.com/nsRCk6p.png" width="400"/>
 
 This project was develop with the next programming language:
 
@@ -26,4 +26,4 @@ Nowadays, ICAAD Software is in development, as a alpha version 0.12.8 and there 
 
 Visit the [Wiki](https://github.com/alb3rtov/ICAAD-Software/wiki) more information.
 
-<img src="https://i.imgur.com/nsRCk6p.png" width="200"/>
+
