@@ -7,7 +7,7 @@ The main utility of this project is reduce the tasks of the manager, creating a 
 
 The development of this software firstly was set for versions of Windows Server Core (without desktop experience). In this way, the manager shouldn't know all the cmdlets of PowerShell about the basic management of a Domain Controller. 
 
-<img src="https://i.imgur.com/nsRCk6p.png" align="right" width="400"/>
+<img src="https://i.imgur.com/nsRCk6p.png" align="right" width="500"/>
 
 This project was develop with the next programming language:
 
