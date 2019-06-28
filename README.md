@@ -1,30 +1,27 @@
 # ICAAD Software
-ICAAD Software es un asistente de instalación, configuración y administración de Active Directory. 
+ICAAD Software is a assitant of installation, configuration and management of Active Directory.
 
-Básicamente se crea una capa gráfica con diferentes menús y submenús con múltiples opciones para la administración de Active Directory
-y mediante el backend se procesan los comandos de Powershell según las indicaciones establecidas en el frontend del administrador .
+Basically, this software use a graphic layer with diferents menus with sereval options for the managament of Active Directory and through backend it process all the cmdlets according to the intructions set in frontend by the manager.
 
-La principal utilidad de este proyecto es la de minimizar las tareas al administrador, creando una interfaz donde podremos encontrar
-múltiples opciones en una misma consola de administración.
+The main utility of this project is reduce the tasks of the manager, creating a interface where can find several options, all in one same console of management.
 
-El desarrollo de este programa se orientó principalmente para versiones de Windows Server Core (sin experiencia de escritorio). 
-Así el administrador no deberá de conocer todos los cmdlets de Powershell necesarios para la administración básica de un 
-controlador de dominio.
+The development of this software firstly was set for versions of Windows Server Core (without desktop experience). In this way, the manager shouldn't know all the cmdlets of PowerShell about the basic management of a Domain Controller.
 
-Este proyecto se desarrolló los siguientes lenguajes:
+This project was develop with the next programming language:
 
-- Python 3.6: Utilizado como base para la creación de menús y submenús.
-- Powershell 5: Utilizado para la creación de scripts .ps1 que serán llamados desde el menú de Python.
+- Python 3.6: Use as base for the creation of menus.
+- PowerShell 5: Use for the creation of scripts ps1 that will call from the Python menu.
 
-Se han desarrollado dos versiones de ICAAD:
+Two ICAAD versions have been developed:
 
-- Versión CMD: Se ejecuta en la consola de Windows donde se genera un menú numérico.
-- Versión GUI: Se ejecuta en una interfaz independiente al CMD. Creado con la librería de Python, Tkinter.
+- CMD version: It runs in Windows console (cmd) where it generates a numerical menu.
+- GUI version: It runs in a stand-alone interface to CMD. It uses Tkinter that is Python's de-facto standard GUI package.
 
-Sistemas operativos aptos para ICAAD Software
+Suitable Operating Systems for ICAAD Software:
 
-- Windows Server 2016 (En todas sus versiones)
-- Windows Server 2012 (Service Packs KB2919442 y KB2919335 necesarios)
+- Windows Server 2016 (All versions)
+- Windows Server 2012 (Service Packs KB2919442 and KB2919335 needed)
  
-ICAAD Software se encuentra actualmente en la versión alpha 0.12.8, con el tiempo se irán implementando 
-nuevos menús y submenús con diferentes opciones.
+Nowadays, ICAAD Software is in development, as a alpha version 0.12.8 and there is only the Spanish version avaliable. Over time, I will adding new options and menus, and especially a English version.
+
+Visit the Wiki more information.
