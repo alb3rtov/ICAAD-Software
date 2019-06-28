@@ -7,9 +7,8 @@ The main utility of this project is reduce the tasks of the manager, creating a 
 
 The development of this software firstly was set for versions of Windows Server Core (without desktop experience). In this way, the manager shouldn't know all the cmdlets of PowerShell about the basic management of a Domain Controller. 
 <br>
-<br>
 <hr/>
-
+<br>
 
 <img src="https://i.imgur.com/nsRCk6p.png" align="right" width="450"/>
 
@@ -29,8 +28,8 @@ Suitable Operating Systems for ICAAD Software:
 - Windows Server 2012 (Service Packs KB2919442 and KB2919335 needed)
 
 <br>
+<hr/>
 <br>
-
  
 Nowadays, ICAAD Software is in development, as a alpha version 0.12.8 and there is only the Spanish version avaliable. Over time, I will adding new options and menus, and especially a English version.
 
