@@ -1,5 +1,5 @@
 # ICAAD Software
-ICAAD Software is a assitant of installation, configuration and management of Active Directory.
+ICAAD Software is a **assitant of installation, configuration and management of Active Directory**.
 
 Basically, this software use a graphic layer with diferents menus with sereval options for the managament of Active Directory and through backend it process all the cmdlets according to the intructions set in frontend by the manager.
 
