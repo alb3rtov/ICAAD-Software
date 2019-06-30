@@ -5,7 +5,7 @@ Basically, this software use a graphic layer with diferents menus with sereval o
 
 The main utility of this project is reduce the tasks of the manager, creating a interface where can find several options, all in one same console of management.
 
-The development of this software was firstly set for versions of Windows Server Core (without desktop experience). In this way, the manager shouldn't know all the cmdlets of PowerShell about the basic management of a Domain Controller. 
+The development of this software was firstly set for versions of Windows Server Core (without desktop experience). In this way, the manager shouldn't know all the _cmdlets_ of `PowerShell` about the basic management of a Domain Controller. 
 <br>
 <hr/>
 
