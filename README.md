@@ -12,7 +12,7 @@ The development of this software was firstly set for versions of Windows Server 
 
 <img src="https://i.imgur.com/nsRCk6p.png" align="right" width="450"/>
 
-This project was develop with the next programming language:
+This project was develop with the next programming languages:
 
 - `Python 3.6`: Use as base for the creation of menus.
 - `PowerShell 5`: Use for the creation of scripts ps1 that will call from the Python menu.
