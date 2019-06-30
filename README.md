@@ -24,8 +24,8 @@ Two ICAAD versions have been developed:
 
 Suitable Operating Systems for ICAAD Software:
 
-- Windows Server 2016 (All versions)
-- Windows Server 2012 (Service Packs KB2919442 and KB2919335 needed)
+- **Windows Server 2016** (All versions)
+- **Windows Server 2012** (Service Packs KB2919442 and KB2919335 needed)
 
 
 <hr/>
