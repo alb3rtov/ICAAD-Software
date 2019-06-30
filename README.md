@@ -10,7 +10,7 @@ The development of this software was firstly set for versions of **Windows Serve
 <hr/>
 
 
-<img src="https://i.imgur.com/nsRCk6p.png" align="right" width="450"/>
+<img src="https://i.imgur.com/nsRCk6p.png" align="center" width="450"/>
 
 This project was develop with the next programming languages:
 
