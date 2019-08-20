@@ -1,7 +1,7 @@
 # Author: Alberto Vázquez
 # https://github.com/alb3rtov/
 # https://informaticaenuno.wordpress.com/
-# Version alfa-0.12.8
+# Version alpha-0.12.8
 
 ##############################
 ###    PACKAGES IMPORTED   ###
@@ -48,6 +48,7 @@ def ExitProgram():
 #Operating System check Function
 def CheckingOS():
     osName = "OS Name";
+    sistemaOperativo = "Nombre del sistema operativo";
     osType1 = "Microsoft Windows Server 2016";
     osType2 = "Microsoft Windows Server 2012";
     cnt = 0
@@ -57,7 +58,7 @@ def CheckingOS():
     dirFile = 'systeminfo.txt'
     with open(dirFile, 'r') as reader:
       for line in reader:
-         if (osName in line):
+         if (osName in line or sistemaOperativo in line):
             print(f'  {line}');
             if (osType1 in line or osType2 in line):
                cnt = cnt+1;
@@ -74,7 +75,6 @@ def CheckingOS():
 ######################################################################################
 
 #Function for 6 options Menus
-#def ChooseOption6():
 
 
 ############################# First Menu Options ##############################
@@ -318,35 +318,106 @@ def FirstMenu():
 #print("                      Creado por Alberto Vázquez Martínez");
 
 
-print();
-print("          ____________   ___   ___    ____     _____     ");
-time.sleep(0.5);
-print("         /  _/ ___/ _ | / _ | / _ \  / __/__  / _/ /__    _____  _______ ");
-time.sleep(0.5);
-print("        _/ // /__/ __ |/ __ |/ // / _\ \/ _ \/ _/ __/ |/|/ / _ `/ __/ -_)");
-time.sleep(0.5);
-print("       /___/\___/_/ |_/_/ |_/____/ /___/\___/_/ \__/|__,__/\_,_/_/  \__/");
-print();
-print("                              By Alberto Vázquez");
+def Banner():
 
-#PROGRAM INFO
-print();
-print("[-*-]                      Welcome to ICAAD Software                      [-*-]");
-print("[-*-]     Assitant of installation, configuration and management of AD    [-*-]")
-print("[-*-]        Suitable OS: Windows Server 2012 y 2016 (All versions)       [-*-]");
-print("[-*-]               Developed in Python 3.6 and Powershell 5              [-*-]");
-print("[-*-]                         Version alpha-0.12.8                        [-*-]");
+	print();
+	print("          ____________   ___   ___    ____     _____     ");
+	time.sleep(0.5);
+	print("         /  _/ ___/ _ | / _ | / _ \  / __/__  / _/ /__    _____  _______ ");
+	time.sleep(0.5);
+	print("        _/ // /__/ __ |/ __ |/ // / _\ \/ _ \/ _/ __/ |/|/ / _ `/ __/ -_)");
+	time.sleep(0.5);
+	print("       /___/\___/_/ |_/_/ |_/____/ /___/\___/_/ \__/|__,__/\_,_/_/  \__/");
+	print();
+	print("                              By Alberto Vázquez");
 
-# LOAD
-print();
-print("  [*] Wait while the program loads  ",end="");
-bfunc.LoadAnimation();();
-print();
-print();
-print("  [*] Detecting your system components  ",end="");
-bfunc.LoadAnimation();();
-print();
-print();
+	#PROGRAM INFO
+	print();
+	print("[-*-]                      Welcome to ICAAD Software                      [-*-]");
+	print("[-*-]     Assitant of installation, configuration and management of AD    [-*-]")
+	print("[-*-]       Suitable OS: Windows Server 2012 and 2016 (All versions)      [-*-]");
+	print("[-*-]               Developed in Python 3.6 and Powershell 5              [-*-]");
+	print("[-*-]                         Version alpha-0.12.8                        [-*-]");
+
+	# LOAD
+	print();
+	print("  [*] Wait while the program loads  ",end="");
+	bfunc.LoadAnimation();();
+	print();
+	print();
+	print("  [*] Detecting your system components  ",end="");
+	bfunc.LoadAnimation();();
+	print();
+	print();
 
 # Program Start
-CheckingOS();
+
+
+if (len(sys.argv) == 1) :
+
+	Banner();
+	CheckingOS();
+
+
+
+if (len(sys.argv) == 2) :
+
+	if (sys.argv[1] == "/version" or sys.argv[1] == "-v") :
+
+		print();
+		print("ICAAD Software version alpha 0.12.8");
+		print();
+		print("You are executing the CMD version of ICAAD software.");
+		print("Use /gui to execute the GUI version");
+		print();
+
+	elif (sys.argv[1] == "/help" or sys.argv[1] == "-h") :
+
+		print();
+		print("ICAAD Software version alpha 0.12.8");
+		print("You can visit the project here --> www.github.com/alb3rtov/icaad-software");
+		print("Also you can visit my wordpress to see more stuff --> www.informaticaenuno.wordpress.com");
+		print();
+		print("This software is licensed under the GNU General Public License v3.0");
+		print();
+		print("    cmd.py	Start the program");
+		print();
+		print("Parameters list:");
+		print();
+		print("    /version	Shows the current version of the software");
+		print("    /help	Shows a complete help for users");
+		print("    /gui 	Executes the GUI version of ICAAD");
+		print("    /os  	Shows the suitable Operating Systems");
+		print();
+
+	elif (sys.argv[1] == "/gui" or sys.argv[1] == "-g") :
+
+		os.system("gui.py");
+
+	elif (sys.argv[1] == "/os" or sys.argv[1] == "-o") :
+
+		print();
+		print("Suitable Operating Systems");
+		print();
+		print("    - Windows Server 2012 R2");
+		print("    - Windows Server 2016");
+		print();
+		print("For Windows Server 2012 R2 you need to have installed the next Service Packs:");
+		print();
+		print("    - KB2919442 ->");
+		print("    - KB2919335 ->");
+		print();
+
+
+	else:
+
+		print();
+		print("ICAAD Software version alpha 0.12.8");
+		print("This software is licensed under the GNU General Public License v3.0");
+		print();
+		print("ERROR: Not valid syntax");
+		print("Error with" , sys.argv[1]);
+		print();
+		print("Use the parameter /help to see all the options");
+		print();
+
