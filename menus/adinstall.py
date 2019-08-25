@@ -91,7 +91,7 @@ def CheckRequirements():
     print ("+-----------------------------------------------------------------------+");
     print ("|          Minimum requirements for install AD (ICAAD Software)         |");
     print ("+-----------------------------------------------------------------------+");
-    print ("| Operating System: Windows Server 2012, 2016                           |");
+    print ("| Operating System: Windows Server 2012, 2016 & 2019                    |");
     print ("| RAM Memory: 2 GB                                                      |");
     print ("| Network: 2 network cards (internal y external)                        |");
     print ("| Storage: 2 Hard disks (Optional for the installation of AD)           |");

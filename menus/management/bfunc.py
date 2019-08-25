@@ -99,12 +99,12 @@ def PromoteDC():
     if (lines != 0):
         p = subprocess.Popen(["powershell.exe", ".\\scripts\\ad\\promote.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
         p.communicate();
-
         RestartComputer();
     else:
         print();
         print(" Your system is ALREADY Domain Controller");
         PressKey();
+
 
 #Second Option, check DC
 def CheckDC():

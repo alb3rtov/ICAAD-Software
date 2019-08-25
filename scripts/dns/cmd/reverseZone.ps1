@@ -1,35 +1,38 @@
 ﻿Write-Output "";
-$zonainversa = read-host " Para identificar la zona de búsqueda inversa, escriba el Id. del red (Ej: 192.168.50.0/24)"
+$reverseZone = read-host " To identify the zone of search reverse, write the ID of network (i.e.: 192.168.50.0/24)"
 Write-Output "";
 
-$zonainversa > .\scripts\dns\docs\zonainversa.txt
+$reverseZone > .\scripts\dns\cmd\temp\ReverseZone.txt
 
-$comprobar = "/"
+$check = "/"
 
-$contador = (Get-Content .\scripts\dns\docs\zonainversa.txt | where{$_-match"$comprobar"}).Count
+$counter = (Get-Content .\scripts\dns\cmd\temp\ReverseZone.txt | where{$_-match"$check"}).Count
 
 #echo $contador
 
-if ($contador -ne 0) {
+if ($counter -ne 0) {
 
-try {
+	try {
 
-Add-DnsServerPrimaryZone -NetworkId "$zonainversa" -ReplicationScope "Forest"
+		Add-DnsServerPrimaryZone -NetworkId "$reverseZone" -ReplicationScope "Forest"
 
- Write-Host " Zona inversa creada correctamente" -ForegroundColor DarkGreen
-}
+		Write-Host " Reverse zone created correctly" -ForegroundColor DarkGreen
+	}
 
-catch [System.Management.Automation.RuntimeException] {
-           if ($_.Exception.Message -ilike "Error"){
-           }
-           Write-Host " Error con alguno de los datos introducidos" -ForegroundColor DarkRed
-}
+	catch [System.Management.Automation.RuntimeException] {
+
+		if ($_.Exception.Message -ilike "Error"){
+        }
+        
+	Write-Host " Error with some entered data" -ForegroundColor DarkRed
+	
+	}
 
 
 }
 
 else {
     
-    Write-Host " Introduzca un ID de red correcto (Ej: 192.168.50.0/24)" -ForegroundColor DarkRed
+    Write-Host " Enter a correct ID of network (i.e.: 192.168.50.0/24)" -ForegroundColor DarkRed
 
 }

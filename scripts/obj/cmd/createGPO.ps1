@@ -14,16 +14,17 @@ if ($counter1 -eq 0) {
 
 
    try {
+	
+	new-gpo -name "$GPOName" > /null
 
-            new-gpo -name "$GPOName" > /null
+	Write-Host " GPO $GPOName created correctly" -ForegroundColor DarkGreen
+   }
 
+   catch [System.Management.Automation.RuntimeException] {
 
-            Write-Host " GPO $GPOName created correctly" -ForegroundColor DarkGreen
-            }
-
-        catch [System.Management.Automation.RuntimeException] {
-            if ($_.Exception.Message -ilike "Error"){
-            }
+	if ($_.Exception.Message -ilike "Error"){
+        
+	}
 
             Write-Host " Error with some of the entered data" -ForegroundColor DarkRed
         }
@@ -33,5 +34,6 @@ if ($counter1 -eq 0) {
 
 else {
 
-            Write-Host " The GPO $GPOName ALREADY exists" -ForegroundColor DarkRed
+	Write-Host " The GPO $GPOName ALREADY exists" -ForegroundColor DarkRed
+
 }

@@ -51,6 +51,8 @@ def CheckingOS():
     sistemaOperativo = "Nombre del sistema operativo";
     osType1 = "Microsoft Windows Server 2016";
     osType2 = "Microsoft Windows Server 2012";
+    osType3 = "Microsoft Windows Server 2019";
+
     cnt = 0
 
     os.system('systeminfo > systeminfo.txt');
@@ -60,13 +62,13 @@ def CheckingOS():
       for line in reader:
          if (osName in line or sistemaOperativo in line):
             print(f'  {line}');
-            if (osType1 in line or osType2 in line):
+            if (osType1 in line or osType2 in line or osType3 in line):
                cnt = cnt+1;
 
     if (cnt == 1):
        FirstMenu();
     else:
-       print("  Operting System must be Windows Server 2012/2016");
+       print("  Operating System must be Windows Server 2012, 2016 or 2019");
        time.sleep(3);
        sys.exit();
 
@@ -100,14 +102,14 @@ def CheckAD1():
     else:
         print();
         print(" The Active Directory service is NOT installed");
-        bfunc.PressKey();();
+        bfunc.PressKey();
 
 
 #2- Active Directory check
 def CheckAD2():
     print();
     print("  [*] Wait while it checks Active Directory  ",end="");
-    bfunc.LoadAnimation();();
+    bfunc.LoadAnimation();
     print();
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\cup\\adcheck.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();
@@ -123,14 +125,14 @@ def CheckAD2():
     else:
         print();
         print(" The Active Directory service is ALREADY installed");
-        bfunc.PressKey();();
+        bfunc.PressKey();
 
 
 #3- Active Directory check
 def CheckAD3():
     print();
     print("  [*] Wait while it checks Active Directory  ",end="");
-    bfunc.LoadAnimation();();
+    bfunc.LoadAnimation();
     print();
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\cup\\adcheck.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();
@@ -159,7 +161,7 @@ def CheckAD3():
 def ManageAD():
     print();
     print("  [*] Wait while it checks Active Directory  ",end="");
-    bfunc.LoadAnimation();();
+    bfunc.LoadAnimation();
     print();
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\cup\\adcheck.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();
@@ -335,7 +337,7 @@ def Banner():
 	print();
 	print("[-*-]                      Welcome to ICAAD Software                      [-*-]");
 	print("[-*-]     Assitant of installation, configuration and management of AD    [-*-]")
-	print("[-*-]       Suitable OS: Windows Server 2012 and 2016 (All versions)      [-*-]");
+	print("[-*-]     Suitable OS: Windows Server 2012, 2016 & 2019 (All versions)    [-*-]");
 	print("[-*-]               Developed in Python 3.6 and Powershell 5              [-*-]");
 	print("[-*-]                         Version alpha-0.12.8                        [-*-]");
 
@@ -401,6 +403,7 @@ if (len(sys.argv) == 2) :
 		print();
 		print("    - Windows Server 2012 R2");
 		print("    - Windows Server 2016");
+		print("    - Windows Server 2019");
 		print();
 		print("For Windows Server 2012 R2 you need to have installed the next Service Packs:");
 		print();

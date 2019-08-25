@@ -31,8 +31,9 @@ def sigint_handler(signum, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 
 
-########################## opciones quinto menu ######################################
+########################## Fiveth Menu Options ######################################
 #primera opción (crear zona inversa)
+
 def ReverseZone():
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\dns\\cmd\\reverseZone.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();

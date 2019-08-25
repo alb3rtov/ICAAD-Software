@@ -1,7 +1,7 @@
 # Author: Alberto Vázquez
 # https://github.com/alb3rtov/
 # https://informaticaenuno.wordpress.com/
-# Version alfa-0.12.8
+# Version alpha-0.12.8
 # Submenu of Group Policy Object (Administration)
 
 
@@ -14,7 +14,6 @@ import time
 import os, sys
 import os.path as path
 import signal
-#import io
 import bfunc
 
 
@@ -29,8 +28,8 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 
 
-############################## opciones septimo menu #################################
-#primera opcion
+############################## Seventh Menu Options #################################
+#First option
 def CreateGPO():
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\obj\\cmd\\createGPO.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();
@@ -38,14 +37,14 @@ def CreateGPO():
     os.system("del .\\scripts\\obj\\cmd\\temp\\createGPO.txt")
     bfunc.PressKey();
 
-#segunda opcion
+#Second option
 def ShowGPO():
     p = subprocess.Popen(["powershell.exe", "Get-GPO -all"],stdout=sys.stdout);
     time.sleep(2);
     bfunc.PressKey();
 
 
-#tercera opcion
+#Third option
 def SearchGPO():
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\obj\\cmd\\searchGPO.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();
@@ -54,7 +53,7 @@ def SearchGPO():
 
 
 
-#cuarta opcion
+#Fourth option
 def LinkGPO():
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\obj\\cmd\\linkGPO.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();
@@ -63,7 +62,7 @@ def LinkGPO():
     bfunc.PressKey();
 
 
-#quinta opcion
+#Fiveth option
 def DeleteGPO():
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\obj\\cmd\\deleteGPO.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();
@@ -71,7 +70,7 @@ def DeleteGPO():
     bfunc.PressKey();
 
 
-#sexta opcion
+#Sixth option
 def DeleteLink():
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\obj\\cmd\\deleteLink.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();
@@ -81,10 +80,10 @@ def DeleteLink():
     bfunc.PressKey();
 
 
-# septima opcion
+#Seventh option
 #menu de configuracion de gpos
 
-# octava opcion
+#Eigthth Option
 def ReportGPO():
     p = subprocess.Popen(["powershell.exe", ".\\scripts\\obj\\cmd\\reportGPO.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
     p.communicate();

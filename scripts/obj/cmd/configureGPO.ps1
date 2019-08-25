@@ -23,9 +23,11 @@ if ($counter1 -ne 0) {
             Write-Host " $GPOName configure correctly" -ForegroundColor DarkGreen
             }
 
-        catch [System.Management.Automation.RuntimeException] {
-            if ($_.Exception.Message -ilike "Error"){
-            }
+    catch [System.Management.Automation.RuntimeException] {
+    
+	if ($_.Exception.Message -ilike "Error"){
+        
+	}
 
             Write-Host " Error with some entered data" -ForegroundColor DarkRed
         }

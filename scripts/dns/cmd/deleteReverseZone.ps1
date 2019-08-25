@@ -1,30 +1,33 @@
 ﻿Write-Output "";
-$zonainversa = read-host " Para borrar la zona escriba el Id. del red (Ej: 192.168.50.0/24)"
+$reverseZone = read-host " Write the zone Id. of the network to delete it (i.e.: 192.168.50.0/24)"
 
 
-$a,$b,$c,$d = $zonainversa.Split('.')
+$a,$b,$c,$d = $reverseZone.Split('.')
 
 $arpa = ".in-addr.arpa"
 
-$punto = "."
+$dot = "."
 
-$nombrezona = $c + $punto + $b + $punto + $a + $arpa
+$zoneName = $c + $dot + $b + $dot + $a + $arpa
 
 #echo $nombrezona
+
 try {
 
-Remove-DnsServerZone -Name "$nombrezona" -Confirm:$False -Force
+	Remove-DnsServerZone -Name "$zoneName" -Confirm:$False -Force
 
-Write-Output "";
-Write-Host " Zona borrada correctamente" -ForegroundColor DarkGreen
+	Write-Output "";
+	Write-Host " Zone deleted correctly" -ForegroundColor DarkGreen
 }
 
 catch [System.Management.Automation.RuntimeException] {
-            if ($_.Exception.Message -ilike "Error"){
-            }
             
-            Write-Output "";
-            Write-Host " Error con alguno de los datos introducidos" -ForegroundColor DarkRed
+	if ($_.Exception.Message -ilike "Error"){
+
+	}
+            
+        Write-Output "";
+        Write-Host " Error with some data entered" -ForegroundColor DarkRed
 }
 
 
