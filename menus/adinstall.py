@@ -48,12 +48,15 @@ def CheckComponents():
     sistemaOperativo = "Nombre del sistema operativo";
     osType1 = "Microsoft Windows Server 2016";
     osType2 = "Microsoft Windows Server 2012";
+    osType3 = "Microsoft Windows Server 2019";
     memory = "Total Physical Memory";
-    memoria = "Cantidad total de memoria física";
-    quanMemory1 = "2,048 MB";
-    quanMemory2 = "4,096 MB";
-    quanMemory3 = "8,192 MB";
-    quanMemory4 = "16,384 MB";
+    memoria = "Cantidad total de memoria";
+    #quanMemory1 = "2,048 MB";
+    #quanMemory = "2,048"
+    #cantMemoria = "2.048"
+    #quanMemory2 = "4,096 MB";
+    #quanMemory3 = "8,192 MB";
+    #quanMemory4 = "16,384 MB";
     networkCards = "Network Card(s)";
     tarjetasRed = "Tarjeta(s) de red";
     cnt = 0;
@@ -66,12 +69,22 @@ def CheckComponents():
       for line in reader:
          if (osName in line or sistemaOperativo in line):
             print(f'  {line}');
-            if (osType1 in line or osType2 in line):
+            if (osType1 in line or osType2 in line or osType3 in line):
                cnt = cnt+1;
          elif (memory in line or memoria in line):
             print(f'  {line}');
-            if (quanMemory1 in line or quanMemory2 in line or quanMemory3 in line or quanMemory4 in line):
-               cnt = cnt+1;
+            #if (quanMemory1 in line or quanMemory2 in line or quanMemory3 in line or quanMemory4 in line):
+            #   cnt = cnt+1;
+            for i in line:
+               if (i.isdigit() == True):
+                  number = int(i);
+                  #print(number);
+                  if (number >= 2):
+                     cnt=cnt+1;
+                     break
+                  else:
+                     break
+
          elif (networkCards in line or tarjetasRed in line):
             print(f'  {line}');
             for i in line:
@@ -104,13 +117,15 @@ def CheckRequirements():
 def CheckSystem():
     osName = "OS Name";
     sistemaOperativo = "Nombre del sistema operativo";
-    osType = "Microsoft Windows Server 2016";
+    osType1 = "Microsoft Windows Server 2012";
+    osType2 = "Microsoft Windows Server 2016";
+    osType3 = "Microsoft Windows Server 2019";
     memory = "Total Physical Memory";
-    memoria = "Cantidad total de memoria física";
-    quanMemory1 = "2,048 MB";
-    quanMemory2 = "4,096 MB";
-    quanMemory3 = "8,192 MB";
-    quanMemory4 = "16,384 MB";
+    memoria = "Cantidad total de memoria";
+    #quanMemory1 = "2,048 MB";
+    #quanMemory2 = "4,096 MB";
+    #quanMemory3 = "8,192 MB";
+    #quanMemory4 = "16,384 MB";
     networkCards = "Network Card(s)";
     tarjetasRed = "Tarjeta(s) de red";
     cnt = 0;
@@ -120,11 +135,21 @@ def CheckSystem():
     with open(dirFile, 'r') as reader:
       for line in reader:
          if (osName in line or sistemaOperativo in line):
-            if (osType in line):
+            if (osType1 in line or osType2 in line or osType3 in line):
                cnt = cnt + 1;
          elif (memory in line or memoria in line):
-            if (quanMemory1 in line or quanMemory2 in line or quanMemory3 in line or quanMemory4 in line):
-               cnt = cnt+1;
+            #if (quanMemory1 in line or quanMemory2 in line or quanMemory3 in line or quanMemory4 in line):
+            #   cnt = cnt+1;
+            for i in line:
+               if (i.isdigit() == True):
+                  number = int(i);
+                  #print(number);
+                  if (number >= 2):
+                     cnt=cnt+1;
+                     break
+                  else:
+                     break
+
          elif (networkCards in line or tarjetasRed in line):
             for i in line:
                if (i.isdigit() == True):
