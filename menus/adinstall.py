@@ -51,12 +51,14 @@ def CheckComponents():
     osType3 = "Microsoft Windows Server 2019";
     memory = "Total Physical Memory";
     memoria = "Cantidad total de memoria";
-    #quanMemory1 = "2,048 MB";
-    #quanMemory = "2,048"
-    #cantMemoria = "2.048"
-    #quanMemory2 = "4,096 MB";
-    #quanMemory3 = "8,192 MB";
-    #quanMemory4 = "16,384 MB";
+    quanMemory1 = "2,048 MB";
+    quanMemory2 = "4,096 MB";
+    quanMemory3 = "8,192 MB";
+    quanMemory4 = "16,384 MB";
+    cantMemoria1 = "2.048 MB";
+    cantMemoria2 = "4.096 MB";
+    cantMemoria3 = "8.192 MB";
+    cantMemoria4 = "16.384 MB";
     networkCards = "Network Card(s)";
     tarjetasRed = "Tarjeta(s) de red";
     cnt = 0;
@@ -73,17 +75,27 @@ def CheckComponents():
                cnt = cnt+1;
          elif (memory in line or memoria in line):
             print(f'  {line}');
-            #if (quanMemory1 in line or quanMemory2 in line or quanMemory3 in line or quanMemory4 in line):
-            #   cnt = cnt+1;
-            for i in line:
-               if (i.isdigit() == True):
-                  number = int(i);
+            if (quanMemory1 in line or quanMemory2 in line or
+               quanMemory3 in line or quanMemory4 in line or
+               cantMemoria1 in line or cantMemoria2 in line or
+               cantMemoria3 in line or cantMemoria4 in line):
+               cnt = cnt+1;
+            #for idx, i in enumerate(line):
+            #for i in line:
+               #if (i.isdigit() == True):
+                  #number = int(i);
+                  #first = i[0]
+
+                  #print(memoryreal);
                   #print(number);
-                  if (number >= 2):
-                     cnt=cnt+1;
-                     break
-                  else:
-                     break
+                  # FIX THIS FOR FUTURE PROBLEMS WITH NUMBERS STARTING IN 1 (16.384 RAM)
+                  # Collect all the numbers and compare with 2048
+                  # Use a variable to collect all the numbers
+                  #if (number >= 2):
+                  #   cnt+=1;
+                  #   break
+                  #else:
+                  #   break
 
          elif (networkCards in line or tarjetasRed in line):
             print(f'  {line}');
@@ -122,10 +134,14 @@ def CheckSystem():
     osType3 = "Microsoft Windows Server 2019";
     memory = "Total Physical Memory";
     memoria = "Cantidad total de memoria";
-    #quanMemory1 = "2,048 MB";
-    #quanMemory2 = "4,096 MB";
-    #quanMemory3 = "8,192 MB";
-    #quanMemory4 = "16,384 MB";
+    quanMemory1 = "2,048 MB";
+    quanMemory2 = "4,096 MB";
+    quanMemory3 = "8,192 MB";
+    quanMemory4 = "16,384 MB";
+    cantMemoria1 = "2.048 MB";
+    cantMemoria2 = "4.096 MB";
+    cantMemoria3 = "8.192 MB";
+    cantMemoria4 = "16.384 MB";
     networkCards = "Network Card(s)";
     tarjetasRed = "Tarjeta(s) de red";
     cnt = 0;
@@ -135,20 +151,17 @@ def CheckSystem():
     with open(dirFile, 'r') as reader:
       for line in reader:
          if (osName in line or sistemaOperativo in line):
+
             if (osType1 in line or osType2 in line or osType3 in line):
                cnt = cnt + 1;
+
          elif (memory in line or memoria in line):
-            #if (quanMemory1 in line or quanMemory2 in line or quanMemory3 in line or quanMemory4 in line):
-            #   cnt = cnt+1;
-            for i in line:
-               if (i.isdigit() == True):
-                  number = int(i);
-                  #print(number);
-                  if (number >= 2):
-                     cnt=cnt+1;
-                     break
-                  else:
-                     break
+
+            if (quanMemory1 in line or quanMemory2 in line or
+               quanMemory3 in line or quanMemory4 in line or
+               cantMemoria1 in line or cantMemoria2 in line or
+               cantMemoria3 in line or cantMemoria4 in line):
+               cnt = cnt+1;
 
          elif (networkCards in line or tarjetasRed in line):
             for i in line:
@@ -176,10 +189,14 @@ def ChangeAdapter():
     print();
     adapter = input(" Current adapter name: ");
     print();
-    newAdapter = input(" New adapter name (must be 'Internal Network' or 'Internet'): ");
+    newAdapter = input(" What of this names do you want for the adapter: Internal Network (i) or Internet (e): ");
     print();
-
-    os.system(f'netsh interface set interface name="{adapter}" newname="{newAdapter}"');
+    if (newAdapter == "i" or newAdapter == "I"):
+       os.system(f'netsh interface set interface name="{adapter}" newname="Internal Network"');
+    elif (newAdapter == "e" or newAdapter == "E"):
+       os.system(f'netsh interface set interface name="{adapter}" newname="Internet"');
+    else:
+       print(" Choose a correct option (i/e)");
 
     bfunc.PressKey();
 
