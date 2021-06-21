@@ -69,7 +69,7 @@ def CheckingOS():
        FirstMenu();
     else:
        print("  Operating System must be Windows Server 2012, 2016 or 2019");
-       time.sleep(3);
+       bfunc.PressKey();
        sys.exit();
 
 ######################################################################################

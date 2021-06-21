@@ -1,6 +1,15 @@
 import subprocess
+import tkinter.font as font
 from PIL import ImageTk,Image
 from frames.InitFrame import *
+
+def create_progress_bar():
+    #progess bar
+    return
+
+def os_system_name():
+    #cozas
+    return
 
 def create_button(master, button_name):
     main_font = font.Font(size="12", family="Helvetica")
@@ -27,13 +36,13 @@ def create_button(master, button_name):
 
     return button_border, button
 
-def open_cmd():
+def open_cmd(root):
     option = messagebox.askquestion("CMD Version","Do you want to open ICAAD CMD version?")
     if option == "yes":
         root.destroy()
         subprocess.run(["python.exe","cmd.py"])
 
-if __name__ == "__main__":
+def main():
     root = tk.Tk()
     root.title("ICAAD Software")
     root.iconbitmap("img/icaad.ico")
@@ -47,7 +56,10 @@ if __name__ == "__main__":
     image1 = Image.open("img/cmd.png")
     image1 = image1.resize((30, 30), Image.ANTIALIAS)
     cmd_icon = ImageTk.PhotoImage(image1)
-    cmd_button = tk.Button(root, image=cmd_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= open_cmd).place(relx=0.85, rely=0.9)
+    cmd_button = tk.Button(root, image=cmd_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: open_cmd(root)).place(relx=0.85, rely=0.9)
 
     e = InitFrame(root)
     root.mainloop()
+
+if __name__ == "__main__":
+    main()

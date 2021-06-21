@@ -1,8 +1,11 @@
 import sys
+import time
 import platform
+import subprocess
 import tkinter as tk
-import tkinter.font as font
 from tkinter import messagebox
+from tkinter import ttk
+from tkinter.constants import HORIZONTAL
 
 import gui
 from frames import MainFrame
@@ -19,7 +22,7 @@ class InitFrame:
         self.button3.configure(command = lambda: self.exit_program(master))
   
     def exit_program(self, master):
-        option = messagebox.askquestion("Exit program","Do yo want to exit?")
+        option = messagebox.askquestion("Exit program","Do you want to exit?")
         if option == "yes":
             sys.exit();
 
@@ -29,10 +32,42 @@ class InitFrame:
         top.iconbitmap("img/icaad.ico")
         myLabel = tk.Label(top, text="ICAAD Software is a assistant of instalation, configuration, administration of Active Directory").pack()
 
+
     def check_system(self, master):
         if platform.system() == 'Windows':
-            if platform.release() == "10" or platform.release() == "16" or platform.release() == "19":
-                messagebox.showinfo("Check operating system","Version " + platform.system() + " " + platform.release() + " is correct")
+
+            #Create background subprocess for cmdlet
+            p = subprocess.Popen(['powershell.exe', 'Get-ComputerInfo OsName'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+           
+            top = tk.Toplevel()
+            top.resizable(False, False)
+            top.geometry("400x80")
+            
+            top.title("Checking OS information")
+            top.iconbitmap("img/icaad.ico")
+            lbl = tk.Label(top, text= "Executing command Get-ComputerInfo", bg='white', fg='#707070').pack(pady=10)
+            s = ttk.Style()
+            s.theme_use("winnative")
+            s.configure("blue.Horizontal.TProgressbar",troughcolor='#f2f2f2', foreground='white', background='#0077d1')
+            progress_bar = ttk.Progressbar(top, style="blue.Horizontal.TProgressbar", orient=HORIZONTAL, length=300, mode="indeterminate")
+            progress_bar.pack()
+            
+            while (p.poll() is None):
+                if progress_bar['value'] == 100:
+                    progress_bar['value'] = 0
+                else: 
+                    progress_bar['value'] += 5%100
+
+                top.update_idletasks()
+                time.sleep(0.125)
+            
+            top.destroy()
+            for line in p.stdout:
+                if "Microsoft Windows" in str(line):
+                    win_ver = str(line)
+
+            if "Microsoft Windows Server 2012" in win_ver or "Microsoft Windows Server 2016" in win_ver or "Microsoft Windows Server 2019" in win_ver:
+                messagebox.showinfo("Check operating system","Version " + win_ver + " is valid")
                
                 # Delete current widgets
                 self.button_border1.destroy()
