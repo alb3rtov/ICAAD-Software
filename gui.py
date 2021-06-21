@@ -27,8 +27,8 @@ def create_button(master, button_name):
                         borderwidth=0, 
                         font = main_font)
                         
-    button_border.pack(pady=20)
-    button.pack()
+    #button_border.pack(pady=20)
+    #button.pack()
     button.bind("<Enter>", lambda e: button.config(bg='#f7fcff'))
     button_border.bind("<Enter>", lambda e: button_border.config(highlightbackground="#538de6", highlightcolor="#538de6"))
     button.bind("<Leave>", lambda e: button.config(bg='white'))
@@ -46,12 +46,12 @@ def main():
     root = tk.Tk()
     root.title("ICAAD Software")
     root.iconbitmap("img/icaad.ico")
-    root.geometry("500x510")
-    root.wm_minsize(400,450)
+    root.geometry("500x520")
+    root.wm_minsize(435,450)
     root.configure(bg='white')
     
     main_icon = ImageTk.PhotoImage(Image.open("img/icaad.png"))
-    icon_label = tk.Label(root, image=main_icon, bg='white').pack(anchor=tk.NW,padx=10,pady=10)
+    icon_label = tk.Label(root, image=main_icon, bg='white').place(relx=0.03, rely=0.03)
 
     image1 = Image.open("img/cmd.png")
     image1 = image1.resize((30, 30), Image.ANTIALIAS)

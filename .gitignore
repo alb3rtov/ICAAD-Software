@@ -1,1 +1,5 @@
 __pycache__/
+systeminfo.txt
+dist/
+build/
+*.spec
