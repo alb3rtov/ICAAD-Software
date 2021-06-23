@@ -1,10 +1,10 @@
 import tkinter as tk
-import tkinter.font as font
 import gui
 from frames import InitFrame
 
 class MainFrame:
     def __init__(self, master):
+        # Create frame and buttons of this frame
         master.geometry("700x400")
         frame = tk.Frame(master, bg='white', width=500, height=300)
         frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
@@ -39,21 +39,30 @@ class MainFrame:
         self.back_button_border.grid(column=1,row=2, pady=10, padx=10)
         self.back_button.grid(column=1,row=2)
 
+        self.buttons_list = [self.conf_ad_button,
+                            self.install_ad_button,
+                            self.check_ad_button,
+                            self.manage_ad_button,
+                            self.conf_dns_button,
+                            self.back_button]
+
+        self.buttons_border_list = [self.conf_ad_button_border,
+                                    self.install_ad_button_border,
+                                    self.check_ad_button_border,
+                                    self.manage_ad_button_border,
+                                    self.conf_dns_button_border,
+                                    self.back_button_border]
+
     def ad_configuration(self):
         print("hola")
+    
+    # Delete all items of the frame
+    def destroy_items(self):
+        for index in range(0, len(self.buttons_list)):
+            self.buttons_list[index].destroy()
+            self.buttons_border_list[index].destroy()
 
+    # Delete items and create previous frame
     def go_back(self, master):
-        self.conf_ad_button_border.destroy()
-        self.conf_ad_button.destroy()
-        self.install_ad_button_border.destroy()
-        self.install_ad_button.destroy()
-        self.check_ad_button_border.destroy()
-        self.check_ad_button.destroy()
-        self.manage_ad_button_border.destroy()
-        self.manage_ad_button.destroy()
-        self.conf_dns_button_border.destroy()
-        self.conf_dns_button.destroy()
-        self.back_button_border.destroy()
-        self.back_button.destroy()
-
+        self.destroy_items()  
         e = InitFrame.InitFrame(master) 

@@ -5,13 +5,13 @@ import subprocess
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
-from tkinter.constants import CENTER, HORIZONTAL
 
 import gui
 from frames import MainFrame
 
 class InitFrame:
     def __init__(self, master):
+        master.geometry("500x520")
         frame = tk.Frame(master, bg='white', width=300, height=300)
         frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
@@ -30,21 +30,36 @@ class InitFrame:
         self.button_border3.grid(column=0, row=2,pady=20)
         self.button3.grid(column=0, row=2)
 
+        self.buttons_list = [self.button1,
+                            self.button2,
+                            self.button3]
+    
+        self.buttons_border_list = [self.button_border1,
+                                    self.button_border2,
+                                    self.button_border3]
+        
+    # Exit program function
     def exit_program(self, master):
         option = messagebox.askquestion("Exit program","Do you want to exit?")
         if option == "yes":
             sys.exit();
 
+    # Show software information 
     def software_info(self):
         top = tk.Toplevel()
         top.title("Software information")
         top.iconbitmap("img/icaad.ico")
         myLabel = tk.Label(top, text="ICAAD Software is a assistant of instalation, configuration, administration of Active Directory").pack()
 
+    # Delete all items of the frame
+    def destroy_items(self):
+        for index in range(0, len(self.buttons_list)):
+            self.buttons_list[index].destroy()
+            self.buttons_border_list[index].destroy()
 
+    #Check if the system is Windows Server
     def check_system(self, master):
         if platform.system() == 'Windows':
-
             #Create background subprocess for cmdlet
             p = subprocess.Popen(['powershell.exe', 'Get-ComputerInfo OsName'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
            
@@ -59,11 +74,12 @@ class InitFrame:
             s = ttk.Style()
             s.theme_use("winnative")
             s.configure("blue.Horizontal.TProgressbar",troughcolor='#f2f2f2', foreground='white', background='#0077d1')
-            progress_bar = ttk.Progressbar(top, style="blue.Horizontal.TProgressbar", orient=HORIZONTAL, length=300, mode="indeterminate")
+            progress_bar = ttk.Progressbar(top, style="blue.Horizontal.TProgressbar", orient=tk.HORIZONTAL, length=300, mode="indeterminate")
             progress_bar.pack()
             
             cnt = 0
 
+            # Show progress bar while cmdlet is running
             while (p.poll() is None):
                 if progress_bar['value'] == 100:
                     progress_bar['value'] = 0
@@ -86,16 +102,11 @@ class InitFrame:
                 if "Microsoft Windows" in str(line):
                     win_ver = line.decode('utf-8', errors='strict').strip()
 
-            if "Microsoft Windows 10" in win_ver or "Microsoft Windows Server 2016" in win_ver or "Microsoft Windows Server 2019" in win_ver:
+            if "Microsoft Windows Server 2012" in win_ver or "Microsoft Windows Server 2016" in win_ver or "Microsoft Windows Server 2019" in win_ver:
                 messagebox.showinfo("Check operating system","Version " + win_ver + " is valid")
                
                 # Delete current widgets
-                self.button_border1.destroy()
-                self.button1.destroy()
-                self.button_border2.destroy()
-                self.button2.destroy()
-                self.button_border3.destroy()
-                self.button3.destroy()
+                self.destroy_items()
                 
                 # Create next frame menu
                 e = MainFrame.MainFrame(master)

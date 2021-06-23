@@ -1,16 +1,10 @@
 import subprocess
+from tkinter.constants import FALSE
 import tkinter.font as font
 from PIL import ImageTk,Image
 from frames.InitFrame import *
 
-def create_progress_bar():
-    #progess bar
-    return
-
-def os_system_name():
-    #cozas
-    return
-
+# Create a generic button
 def create_button(master, button_name):
     main_font = font.Font(size="12", family="Helvetica")
 
@@ -27,8 +21,6 @@ def create_button(master, button_name):
                         borderwidth=0, 
                         font = main_font)
                         
-    #button_border.pack(pady=20)
-    #button.pack()
     button.bind("<Enter>", lambda e: button.config(bg='#f7fcff'))
     button_border.bind("<Enter>", lambda e: button_border.config(highlightbackground="#538de6", highlightcolor="#538de6"))
     button.bind("<Leave>", lambda e: button.config(bg='white'))
@@ -36,22 +28,25 @@ def create_button(master, button_name):
 
     return button_border, button
 
+# Runs cmd.py and destroy GUI frame
 def open_cmd(root):
     option = messagebox.askquestion("CMD Version","Do you want to open ICAAD CMD version?")
     if option == "yes":
         root.destroy()
         subprocess.run(["python.exe","cmd.py"])
 
+# Define and create main frame
 def main():
     root = tk.Tk()
     root.title("ICAAD Software")
     root.iconbitmap("img/icaad.ico")
     root.geometry("500x520")
-    root.wm_minsize(435,450)
+    #root.wm_minsize(435,450)
+    root.resizable(False, False)
     root.configure(bg='white')
     
     main_icon = ImageTk.PhotoImage(Image.open("img/icaad.png"))
-    icon_label = tk.Label(root, image=main_icon, bg='white').place(relx=0.03, rely=0.03)
+    icon_label = tk.Label(root, image=main_icon, bg='white').place(x=13, y=13)
 
     image1 = Image.open("img/cmd.png")
     image1 = image1.resize((30, 30), Image.ANTIALIAS)
