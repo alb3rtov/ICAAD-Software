@@ -3,4 +3,4 @@ systeminfo.txt
 dist/
 build/
 *.spec
-*.csv
+Set-ExecutionPolicy Unrestricted
