@@ -3,3 +3,4 @@ systeminfo.txt
 dist/
 build/
 *.spec
+*.csv

@@ -4,6 +4,9 @@ import tkinter.font as font
 from PIL import ImageTk,Image
 from frames.InitFrame import *
 
+# Global variables
+g_dict_osinfo = {}
+
 # Create a generic button
 def create_button(master, button_name):
     main_font = font.Font(size="12", family="Helvetica")
@@ -44,7 +47,7 @@ def main():
     #root.wm_minsize(435,450)
     root.resizable(False, False)
     root.configure(bg='white')
-    
+
     main_icon = ImageTk.PhotoImage(Image.open("img/icaad.png"))
     icon_label = tk.Label(root, image=main_icon, bg='white').place(x=13, y=13)
 

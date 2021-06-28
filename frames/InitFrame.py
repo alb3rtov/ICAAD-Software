@@ -3,8 +3,10 @@ import time
 import platform
 import subprocess
 import tkinter as tk
+import re
 from tkinter import messagebox
 from tkinter import ttk
+from tkinter.constants import S, SEL_FIRST
 
 import gui
 from frames import MainFrame
@@ -14,7 +16,7 @@ class InitFrame:
         master.geometry("500x520")
         frame = tk.Frame(master, bg='white', width=300, height=300)
         frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-
+        
         self.button_border1, self.button1 = gui.create_button(frame, "What is ICAAD Software GUI?")
         self.button1.configure(command = self.software_info)
         self.button_border1.grid(column=0, row=0, pady=20)
@@ -57,11 +59,11 @@ class InitFrame:
             self.buttons_list[index].destroy()
             self.buttons_border_list[index].destroy()
 
-    #Check if the system is Windows Server
+    # Check if the system is Windows Server
     def check_system(self, master):
         if platform.system() == 'Windows':
-            #Create background subprocess for cmdlet
-            p = subprocess.Popen(['powershell.exe', 'Get-ComputerInfo OsName'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            # Create background subprocess for cmdlet
+            p = subprocess.Popen(['powershell.exe', "-ExecutionPolicy", "unrestricted", '.\\scripts\\hashtable.ps1'], stdout=subprocess.PIPE, stderr= subprocess.PIPE)
            
             top = tk.Toplevel()
             top.resizable(False, False)
@@ -78,9 +80,10 @@ class InitFrame:
             progress_bar.pack()
             
             cnt = 0
-
+            
             # Show progress bar while cmdlet is running
             while (p.poll() is None):
+                
                 if progress_bar['value'] == 100:
                     progress_bar['value'] = 0
                 else: 
@@ -96,11 +99,22 @@ class InitFrame:
 
                 top.update_idletasks()
                 time.sleep(0.125)
-            
+
             top.destroy()
+
+            skip_title = 0
             for line in p.stdout:
-                if "Microsoft Windows" in str(line):
-                    win_ver = line.decode('utf-8', errors='strict').strip()
+                if skip_title == 3 and len(line) > 2:
+                    decoded_line = line.decode('utf-8', errors='strict').strip()
+                    clean_line = re.sub('\s+',' ', str(decoded_line))
+                    
+                    key = clean_line.split()[0]
+                    gui.g_dict_osinfo[key] = clean_line.partition(' ')[2]
+
+                    if "Microsoft Windows" in str(line):
+                        win_ver = gui.g_dict_osinfo["OsName"]
+                else:
+                    skip_title += 1
 
             if "Microsoft Windows Server 2012" in win_ver or "Microsoft Windows Server 2016" in win_ver or "Microsoft Windows Server 2019" in win_ver:
                 messagebox.showinfo("Check operating system","Version " + win_ver + " is valid")
