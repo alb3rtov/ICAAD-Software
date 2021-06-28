@@ -1,11 +1,53 @@
 import subprocess
-from tkinter.constants import FALSE
 import tkinter.font as font
+from tkinter import ttk
+
 from PIL import ImageTk,Image
 from frames.InitFrame import *
 
 # Global variables
 g_dict_osinfo = {}
+
+# Main funtions
+
+# Create generic progress bar
+def create_progress_bar(text, p):
+    top = tk.Toplevel()
+    top.resizable(False, False)
+    top.geometry("400x80")
+                
+    top.title("Checking OS information")
+    top.iconbitmap("img/icaad.ico")
+    lbl = tk.Label(top, text= text, bg='white', fg='#707070')
+    lbl.pack(pady=10)
+    s = ttk.Style()
+    s.theme_use("winnative")
+    s.configure("blue.Horizontal.TProgressbar",troughcolor='#f2f2f2', foreground='white', background='#0077d1')
+    progress_bar = ttk.Progressbar(top, style="blue.Horizontal.TProgressbar", orient=tk.HORIZONTAL, length=300, mode="indeterminate")
+    progress_bar.pack()
+                
+    cnt = 0
+                
+    # Show progress bar while cmdlet is running
+    while (p.poll() is None):
+                    
+        if progress_bar['value'] == 100:
+            progress_bar['value'] = 0
+        else: 
+            progress_bar['value'] += 5%100
+
+            if progress_bar['value']%25 == 0:
+                if cnt == 2:
+                    lbl['text'] = lbl['text'][:-2]
+                    cnt = 0
+                else:
+                    lbl['text'] += "."
+                    cnt += 1
+
+        top.update_idletasks()
+        time.sleep(0.125)
+
+    top.destroy()
 
 # Create a generic button
 def create_button(master, button_name):

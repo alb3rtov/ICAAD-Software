@@ -1,4 +1,7 @@
+import subprocess
 import tkinter as tk
+from tkinter import messagebox
+
 import gui
 from frames import InitFrame
 
@@ -20,7 +23,7 @@ class MainFrame:
         self.install_ad_button.grid(column=0,row=1)
 
         self.check_ad_button_border, self.check_ad_button = gui.create_button(frame, "Active Directory check")
-        self.check_ad_button.configure(command = self.ad_configuration, height=2)
+        self.check_ad_button.configure(command = self.ad_check, height=2)
         self.check_ad_button_border.grid(column=0,row=2, pady=10, padx=10)
         self.check_ad_button.grid(column=0,row=2)
 
@@ -52,6 +55,19 @@ class MainFrame:
                                     self.manage_ad_button_border,
                                     self.conf_dns_button_border,
                                     self.back_button_border]
+
+    def ad_check(self):
+        p = subprocess.Popen(['powershell.exe', "-ExecutionPolicy", "Bypass", '.\\scripts\\adcheck.ps1'], stdout=subprocess.PIPE, stderr= subprocess.PIPE)
+        
+        gui.create_progress_bar("Executing command Get-WindowsFeature.",p)
+        
+        for line in p.stdout:
+            decoded_output = line.decode('utf-8', errors='strict').strip()
+
+        if decoded_output == "False":
+            messagebox.showinfo("Check Active Directory", "Active Directory services are not installed on this computer")
+        else:
+            messagebox.showinfo("Check Active Directory", "Active Directory services are installed on this computer")
 
     def ad_configuration(self):
         print("hola")
