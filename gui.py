@@ -11,6 +11,9 @@ from frames.InitFrame import *
 
 # Global variables
 g_dict_osinfo = {}
+g_suitable_os = ["Microsoft Windows Server 2012",
+                "Microsoft Windows Server 2016",
+                "Microsoft Windows Server 2019"]
 
 # Main funtions
 # Delete all items of the frame
@@ -19,18 +22,32 @@ def destroy_items(buttons_list, buttons_border_list):
         buttons_list[index].destroy()
         buttons_border_list[index].destroy()
 
+# Search in suitable OS list
+def check_os_list():
+    suitable_os = False
+
+    for os in range(len(g_suitable_os)):
+        if g_suitable_os[os] in g_dict_osinfo["OsName"]:
+            suitable_os = True
+            break
+    
+    return suitable_os
+
 # Create new next frame menu if system is Windows Server
 def check_os(master):
-    if ("Microsoft Windows Server 2012" in g_dict_osinfo["OsName"] or 
-        "Microsoft Windows Server 2016" in g_dict_osinfo["OsName"] or 
-        "Microsoft Windows Server 2019" in g_dict_osinfo["OsName"]):
-
+    suitable_os = False
+    if (check_os_list()):
         messagebox.showinfo("Check operating system","Version " + g_dict_osinfo["OsName"] + " is valid")
+        suitable_os = True
     else:
         messagebox.showwarning("Check operating system", "Must be a Windows version 2012/2016/2019 " + "\n(You have " + g_dict_osinfo["OsName"] + ")")
-   
+
+    return suitable_os
+
 # Check if the system is Windows Server
 def check_system(master):
+    suitable_os = False
+
     if len(g_dict_osinfo) == 0:
         if platform.system() == 'Windows':
             # Create background subprocess for cmdlet
@@ -52,13 +69,13 @@ def check_system(master):
                 else:
                     skip_title += 1
 
-            check_os(master)
-
+            suitable_os = check_os(master)
         else:
             messagebox.showwarning("Check operating system", "Must be a Windows version 2012/2016/2019 " + "\n(You have " + g_dict_osinfo["OsName"] + ")")
     else:
-        check_os(master)
+        suitable_os = check_os(master)
 
+    return suitable_os
 
 # Create generic progress bar
 def create_progress_bar(text, p):
@@ -135,7 +152,7 @@ def main():
     root = tk.Tk()
     root.title("ICAAD Software")
     root.iconbitmap("img/icaad.ico")
-    root.geometry("500x520")
+    
     #root.wm_minsize(435,450)
     root.resizable(False, False)
     root.configure(bg='white')
@@ -146,8 +163,9 @@ def main():
     image1 = Image.open("img/cmd.png")
     image1 = image1.resize((30, 30), Image.ANTIALIAS)
     cmd_icon = ImageTk.PhotoImage(image1)
-    cmd_button = tk.Button(root, image=cmd_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: open_cmd(root)).place(relx=0.85, rely=0.9)
-
+    cmd_button = tk.Button(root, image=cmd_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: open_cmd(root))
+    cmd_button.place(relx=0.85, rely=0.9)
+    
     e = InitFrame(root)
     root.mainloop()
 

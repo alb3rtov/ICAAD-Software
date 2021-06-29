@@ -3,4 +3,3 @@ systeminfo.txt
 dist/
 build/
 *.spec
-Set-ExecutionPolicy Unrestricted
