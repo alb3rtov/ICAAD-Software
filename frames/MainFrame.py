@@ -1,5 +1,6 @@
 import subprocess
 import tkinter as tk
+from PIL import ImageTk,Image
 from tkinter import messagebox
 
 import gui
@@ -8,7 +9,7 @@ from frames import InitFrame
 class MainFrame:
     def __init__(self, master):
         # Create frame and buttons of this frame
-        master.geometry("700x400")
+        master.geometry("500x550")
         frame = tk.Frame(master, bg='white', width=500, height=300)
         frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
@@ -29,19 +30,21 @@ class MainFrame:
 
         self.manage_ad_button_border, self.manage_ad_button = gui.create_button(frame, "Active Directory manage")
         self.manage_ad_button.configure(command = self.ad_configuration, height=2)
-        self.manage_ad_button_border.grid(column=1,row=0, pady=10, padx=10)
+        self.manage_ad_button_border.grid(column=0,row=3, pady=10, padx=10)
         self.manage_ad_button.grid(column=1,row=0)
 
         self.conf_dns_button_border, self.conf_dns_button = gui.create_button(frame, "DNS configuration")
         self.conf_dns_button.configure(command = self.ad_configuration, height=2)
-        self.conf_dns_button_border.grid(column=1,row=1, pady=10, padx=10)
+        self.conf_dns_button_border.grid(column=0,row=4, pady=10, padx=10)
         self.conf_dns_button.grid(column=1,row=1)
 
-        self.back_button_border, self.back_button = gui.create_button(frame, "Back")
-        self.back_button.configure(command = lambda: self.go_back(master), height=2)
-        self.back_button_border.grid(column=1,row=2, pady=10, padx=10)
-        self.back_button.grid(column=1,row=2)
-        
+        image2 = Image.open("img/back.png")
+        image2 = image2.resize((30, 30), Image.ANTIALIAS)
+        self.back_icon = ImageTk.PhotoImage(image2)
+        self.back_button = tk.Button(master, image=self.back_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: self.go_back(master))
+        self.back_button.place(relx=0.10, rely=0.9)
+        self.back_button_border = tk.Frame()
+
         self.buttons_list = [self.conf_ad_button,
                             self.install_ad_button,
                             self.check_ad_button,

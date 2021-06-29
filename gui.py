@@ -13,7 +13,8 @@ from frames.InitFrame import *
 g_dict_osinfo = {}
 g_suitable_os = ["Microsoft Windows Server 2012",
                 "Microsoft Windows Server 2016",
-                "Microsoft Windows Server 2019"]
+                "Microsoft Windows Server 2019",
+                "Microsoft Windows 10"]
 
 # Main funtions
 # Delete all items of the frame

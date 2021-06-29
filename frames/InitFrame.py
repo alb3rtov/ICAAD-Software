@@ -1,6 +1,7 @@
 import sys
 import tkinter as tk
 from tkinter import messagebox
+import tkinter.font as font
 
 import gui
 from frames import MainFrame
@@ -8,12 +9,12 @@ from frames import ConfigNICFrame
 
 class InitFrame:
     def __init__(self, master):
-        master.geometry("500x570")
+        master.geometry("500x600")
         frame = tk.Frame(master, bg='white', width=300, height=300)
         frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         
         self.button_border1, self.button1 = gui.create_button(frame, "What is ICAAD Software GUI?")
-        self.button1.configure(command = self.software_info)
+        self.button1.configure(command = lambda: self.software_info(master))
         self.button_border1.grid(column=0, row=0, pady=20)
         self.button1.grid(column=0, row=0)
 
@@ -61,8 +62,12 @@ class InitFrame:
             sys.exit();
 
     # Show software information 
-    def software_info(self):
-        top = tk.Toplevel()
-        top.title("Software information")
-        top.iconbitmap("img/icaad.ico")
-        myLabel = tk.Label(top, text="ICAAD Software is a assistant of instalation, configuration, administration of Active Directory").pack()
+    def software_info(self, master):
+        gui.destroy_items(self.buttons_list, self.buttons_border_list)
+        main_font = font.Font(size="12", family="Helvetica")
+        myLabel = tk.Label(master, 
+                        bg='white',
+                        text="ICAAD Software is a assistant of instalation, \nconfiguration, administration of Active Directory",
+                        font = main_font)
+        
+        myLabel.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
