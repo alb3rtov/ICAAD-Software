@@ -21,7 +21,7 @@ class ConfigNICFrame:
         self.buttons_border_list = []
 
         for i in range(len(self.nc_list)):
-            self.button_border, self.button = gui.create_button(frame, self.nc_list[nc])
+            self.button_border, self.button = gui.create_button(frame, self.nc_list[i])
             self.button.configure(command = lambda: self.config_nic(i))
             self.button_border.grid(column=0, row=i, pady=20)
             self.button.grid(column=0, row=i)
