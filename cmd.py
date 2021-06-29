@@ -134,24 +134,21 @@ def CheckAD3():
     print("  [*] Wait while it checks Active Directory  ",end="");
     bfunc.LoadAnimation();
     print();
-    p = subprocess.Popen(["powershell.exe", ".\\scripts\\cup\\adcheck.ps1"],stdout=sys.stdout); # se ponen dos barras para que no de problemas de codec
-    p.communicate();
+    
+    p = subprocess.Popen(["powershell.exe", "-ExecutionPolicy", "Bypass", ".\\scripts\\adcheck.ps1"], stdout=subprocess.PIPE, stderr= subprocess.PIPE)
 
-    lines = len(open('.\\scripts\\cup\\temp\\adcheck.txt').readlines());
+    for line in p.stdout:
+        decoded_output = line.decode('utf-8', errors='strict').strip()
 
-    p1 = subprocess.Popen(["powershell.exe", "del .\\scripts\\comp\\temp\\adcheck.txt"],stdout=sys.stdout);
-
-    #print(lines);
-
-
-    if (lines != 0):
-        print();
-        print(" The Active Directory service is ALREADY installed");
-        bfunc.PressKey();();
-    else:
+    if (decoded_output == "False"):
         print();
         print(" The Active Directory service is NOT installed");
-        bfunc.PressKey();();
+        bfunc.PressKey();
+    else:
+        print();
+        print(" The Active Directory service is ALREADY installed");
+        bfunc.PressKey();
+
 
 
 
@@ -280,45 +277,6 @@ def FirstMenu():
          ExitProgram();
       else:
          break;
-
-
-
-####################
-###    START     ###
-####################
-
-# BANNER
-
-#print();
-#print("  ___       __   ________  ________  ________  ________  ________ _________   ");
-#time.sleep(0.5);
-#print(" |\  \     |\  \|\   __  \|\   ___ \|\   ____\|\   __  \|\  _____\\\___  ___\ ");
-#time.sleep(0.5);
-#print(" \ \  \    \ \  \ \  \|\  \ \  \_|\ \ \  \___|\ \  \|\  \ \  \__/\|___\  \_| ");
-#time.sleep(0.5);
-#print("  \ \  \  __\ \  \ \   __  \ \  \  \\ \ \_____  \ \  \\ \  \ \   __\   \ \  \  ");
-#time.sleep(0.5);
-#print("   \ \  \|\__\_\  \ \  \ \  \ \  \_ \\ \|____|\  \ \  \\ \  \ \  \_|    \ \  \ ");
-#time.sleep(0.5);
-#print("    \ \____________\ \__\ \__\ \_______\____\_\  \ \_______\ \__\      \ \__\ ");
-#time.sleep(0.5);
-#print("     \|____________|\|__|\|__|\|_______|\_________\|_______|\|__|       \|__| ");
-#time.sleep(0.5);
-#print("                                       \|_________|By Alberto Vázquez Martínez");
-#print();
-
-#print();
-#print("                       _      _____   ___           _____");
-#time.sleep(0.5);
-#print("                      | | /| / / _ | / _ \___ ___  / _/ /_");
-#time.sleep(0.5);
-#print("                      | |/ |/ / __ |/ // (_-</ _ \/ _/ __/");
-#time.sleep(0.5);
-#print("                      |__/|__/_/ |_/____/___/\___/_/ \__/ ");
-#time.sleep(0.5);
-#print();
-#print("                      Creado por Alberto Vázquez Martínez");
-
 
 def Banner():
 

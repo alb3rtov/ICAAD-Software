@@ -41,7 +41,7 @@ class MainFrame:
         self.back_button.configure(command = lambda: self.go_back(master), height=2)
         self.back_button_border.grid(column=1,row=2, pady=10, padx=10)
         self.back_button.grid(column=1,row=2)
-
+        
         self.buttons_list = [self.conf_ad_button,
                             self.install_ad_button,
                             self.check_ad_button,
@@ -72,13 +72,7 @@ class MainFrame:
     def ad_configuration(self):
         print("hola")
     
-    # Delete all items of the frame
-    def destroy_items(self):
-        for index in range(0, len(self.buttons_list)):
-            self.buttons_list[index].destroy()
-            self.buttons_border_list[index].destroy()
-
     # Delete items and create previous frame
     def go_back(self, master):
-        self.destroy_items()  
+        gui.destroy_items(self.buttons_list, self.buttons_border_list)  
         e = InitFrame.InitFrame(master) 

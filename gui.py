@@ -1,4 +1,8 @@
 import subprocess
+import time
+import platform
+import subprocess
+import re
 import tkinter.font as font
 from tkinter import ttk
 
@@ -9,6 +13,52 @@ from frames.InitFrame import *
 g_dict_osinfo = {}
 
 # Main funtions
+# Delete all items of the frame
+def destroy_items(buttons_list, buttons_border_list):
+    for index in range(0, len(buttons_list)):
+        buttons_list[index].destroy()
+        buttons_border_list[index].destroy()
+
+# Create new next frame menu if system is Windows Server
+def check_os(master):
+    if ("Microsoft Windows Server 2012" in g_dict_osinfo["OsName"] or 
+        "Microsoft Windows Server 2016" in g_dict_osinfo["OsName"] or 
+        "Microsoft Windows Server 2019" in g_dict_osinfo["OsName"]):
+
+        messagebox.showinfo("Check operating system","Version " + g_dict_osinfo["OsName"] + " is valid")
+    else:
+        messagebox.showwarning("Check operating system", "Must be a Windows version 2012/2016/2019 " + "\n(You have " + g_dict_osinfo["OsName"] + ")")
+   
+# Check if the system is Windows Server
+def check_system(master):
+    if len(g_dict_osinfo) == 0:
+        if platform.system() == 'Windows':
+            # Create background subprocess for cmdlet
+            p = subprocess.Popen(['powershell.exe', "-ExecutionPolicy", "Bypass", '.\\scripts\\osinfo.ps1'], stdout=subprocess.PIPE, stderr= subprocess.PIPE)
+        
+            # Create progress bar
+            create_progress_bar("Executing command Get-ComputerInfo.", p)
+
+            skip_title = 0
+            for line in p.stdout:
+                if len(line) > 2:
+                    # Decode line format
+                    decoded_line = line.decode('utf-8', errors='strict').strip()
+                    clean_line = re.sub('\s+',' ', str(decoded_line))
+                    
+                    key = clean_line.split()[0]
+                    g_dict_osinfo[key] = clean_line.partition(' ')[2]
+
+                else:
+                    skip_title += 1
+
+            check_os(master)
+
+        else:
+            messagebox.showwarning("Check operating system", "Must be a Windows version 2012/2016/2019 " + "\n(You have " + g_dict_osinfo["OsName"] + ")")
+    else:
+        check_os(master)
+
 
 # Create generic progress bar
 def create_progress_bar(text, p):
