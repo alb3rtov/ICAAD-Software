@@ -1,7 +1,8 @@
 import sys
 import tkinter as tk
-from tkinter import messagebox
 import tkinter.font as font
+from tkinter import messagebox
+from PIL import ImageTk,Image
 
 import gui
 from frames import MainFrame
@@ -33,15 +34,24 @@ class InitFrame:
         self.button_border4.grid(column=0, row=3,pady=20)
         self.button4.grid(column=0, row=3)
 
+        image1 = Image.open("img/cmd.png")
+        image1 = image1.resize((30, 30), Image.ANTIALIAS)
+        self.cmd_icon = ImageTk.PhotoImage(image1)
+        self.cmd_button = tk.Button(master, image=self.cmd_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: gui.open_cmd(master))
+        self.cmd_button.place(x=430,y=530)
+        self.cmd_button_border = tk.Frame()
+
         self.buttons_list = [self.button1,
                             self.button2,
                             self.button3,
-                            self.button4]
+                            self.button4,
+                            self.cmd_button]
     
         self.buttons_border_list = [self.button_border1,
                                     self.button_border2,
                                     self.button_border3,
-                                    self.button_border4]
+                                    self.button_border4,
+                                    self.cmd_button_border]
 
     # Go to main configuration frame   
     def main_menu(self, master):

@@ -161,12 +161,8 @@ def main():
     main_icon = ImageTk.PhotoImage(Image.open("img/icaad.png"))
     icon_label = tk.Label(root, image=main_icon, bg='white').place(x=13, y=13)
 
-    image1 = Image.open("img/cmd.png")
-    image1 = image1.resize((30, 30), Image.ANTIALIAS)
-    cmd_icon = ImageTk.PhotoImage(image1)
-    cmd_button = tk.Button(root, image=cmd_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: open_cmd(root))
-    cmd_button.place(relx=0.85, rely=0.9)
-    
+
+
     e = InitFrame(root)
     root.mainloop()
 
