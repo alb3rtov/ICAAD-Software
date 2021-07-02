@@ -42,7 +42,6 @@ class MainFrame:
         image2 = image2.resize((30, 30), Image.ANTIALIAS)
         self.back_icon = ImageTk.PhotoImage(image2)
         self.back_button = tk.Button(master, image=self.back_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: self.go_back(master))
-        #self.back_button.place(relx=0.10, rely=0.9)
         self.back_button.place(x=40,y=480)
         self.back_button_border = tk.Frame()
 
@@ -50,7 +49,6 @@ class MainFrame:
         image1 = image1.resize((30, 30), Image.ANTIALIAS)
         self.cmd_icon = ImageTk.PhotoImage(image1)
         self.cmd_button = tk.Button(master, image=self.cmd_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: gui.open_cmd(master))
-        #self.cmd_button.place(relx=0.85, rely=0.9)
         self.cmd_button.place(x=430,y=480)
         self.cmd_button_border = tk.Frame()
 

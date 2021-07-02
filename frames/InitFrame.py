@@ -25,7 +25,7 @@ class InitFrame:
         self.button2.grid(column=0, row=1)
 
         self.button_border3, self.button3 = gui.create_button(frame, "Configure NICs")
-        self.button3.configure(command = lambda: self.configure_nc_cards(master))
+        self.button3.configure(command = lambda: self.configure_nic(master))
         self.button_border3.grid(column=0, row=2,pady=20)
         self.button3.grid(column=0, row=2)
 
@@ -59,8 +59,8 @@ class InitFrame:
             gui.destroy_items(self.buttons_list, self.buttons_border_list)
             e = MainFrame.MainFrame(master)
     
-    # Go to configuration NC cards frame
-    def configure_nc_cards(self, master):
+    # Go to configuration NICs
+    def configure_nic(self, master):
         if (gui.check_system(master)):
             gui.destroy_items(self.buttons_list, self.buttons_border_list)
             e = ConfigNICFrame.ConfigNICFrame(master)
@@ -71,13 +71,25 @@ class InitFrame:
         if option == "yes":
             sys.exit();
 
+    # Go back of sofware information
+    def go_back(self, master):
+        self.back_button.destroy()
+        self.myLabel.destroy()
+        e = InitFrame(master)
+
     # Show software information 
     def software_info(self, master):
         gui.destroy_items(self.buttons_list, self.buttons_border_list)
-        main_font = font.Font(size="12", family="Helvetica")
-        myLabel = tk.Label(master, 
+        main_font = font.Font(size="14", family="Helvetica")
+        self.myLabel = tk.Label(master, 
                         bg='white',
-                        text="ICAAD Software is a assistant of instalation, \nconfiguration, administration of Active Directory",
+                        text="ICAAD Software is a assistant of instalation, \nconfiguration, administration of Active Directory \n\n http://www.github.com/alb3rtov/ICAAD-Software",
                         font = main_font)
         
-        myLabel.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.myLabel.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        image2 = Image.open("img/back.png")
+        image2 = image2.resize((30, 30), Image.ANTIALIAS)
+        self.back_icon = ImageTk.PhotoImage(image2)
+        self.back_button = tk.Button(master, image=self.back_icon, bg='white', relief='groove', borderwidth=0, cursor='hand2', command= lambda: self.go_back(master))
+        self.back_button.place(x=40, y=530)

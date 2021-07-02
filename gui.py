@@ -119,7 +119,7 @@ def create_progress_bar(text, p):
 
 # Create a generic button
 def create_button(master, button_name):
-    main_font = font.Font(size="12", family="Helvetica")
+    main_font = font.Font(size="13", family="Helvetica")
 
     button_border = tk.Frame(master, 
                         highlightbackground="gray87", 
@@ -153,15 +153,12 @@ def main():
     root = tk.Tk()
     root.title("ICAAD Software")
     root.iconbitmap("img/icaad.ico")
-    
     #root.wm_minsize(435,450)
     root.resizable(False, False)
     root.configure(bg='white')
 
     main_icon = ImageTk.PhotoImage(Image.open("img/icaad.png"))
     icon_label = tk.Label(root, image=main_icon, bg='white').place(x=13, y=13)
-
-
 
     e = InitFrame(root)
     root.mainloop()
