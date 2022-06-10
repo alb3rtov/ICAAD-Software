@@ -10,10 +10,12 @@ from PIL import ImageTk,Image
 from frames.InitFrame import *
 
 # Global variables
+g_list_nic = []
 g_dict_osinfo = {}
 g_suitable_os = ["Microsoft Windows Server 2012",
                 "Microsoft Windows Server 2016",
                 "Microsoft Windows Server 2019",
+                "Microsoft Windows Server 2022",
                 "Microsoft Windows 10"]
 
 # Main funtions
@@ -41,7 +43,7 @@ def check_os(master):
         messagebox.showinfo("Check operating system","Version " + g_dict_osinfo["OsName"] + " is valid")
         suitable_os = True
     else:
-        messagebox.showwarning("Check operating system", "Must be a Windows version 2012/2016/2019 " + "\n(You have " + g_dict_osinfo["OsName"] + ")")
+        messagebox.showwarning("Check operating system", "Must be a Windows version 2012/2016/2019/2022 " + "\n(You have " + g_dict_osinfo["OsName"] + ")")
 
     return suitable_os
 
@@ -72,11 +74,30 @@ def check_system(master):
 
             suitable_os = check_os(master)
         else:
-            messagebox.showwarning("Check operating system", "Must be a Windows version 2012/2016/2019 " + "\n(You have " + g_dict_osinfo["OsName"] + ")")
+            messagebox.showwarning("Check operating system", "Must be a Windows version 2012/2016/2019/2022 " + "\n(You have " + g_dict_osinfo["OsName"] + ")")
     else:
         suitable_os = check_os(master)
 
     return suitable_os
+
+def get_nics(master):
+    if len(g_list_nic) == 0:
+        p = subprocess.Popen(['powershell.exe', "-ExecutionPolicy", "Bypass", '.\\scripts\\nics.ps1'], stdout=subprocess.PIPE, stderr= subprocess.PIPE)
+        
+        # Create progress bar
+        create_progress_bar("Executing command Get-NetAdapter.", p)
+
+        skip_title = 0
+        for line in p.stdout:
+            if len(line) > 2 and skip_title >= 3:
+                decoded_line = line.decode('utf-8', errors='replace').strip()
+                clean_line = re.sub('\s+',' ', str(decoded_line))
+
+                #print(clean_line)
+                g_list_nic.append(clean_line)
+
+            else:
+                skip_title += 1
 
 # Create generic progress bar
 def create_progress_bar(text, p):

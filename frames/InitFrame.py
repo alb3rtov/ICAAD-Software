@@ -62,6 +62,7 @@ class InitFrame:
     # Go to configuration NICs
     def configure_nic(self, master):
         if (gui.check_system(master)):
+            gui.get_nics(master)
             gui.destroy_items(self.buttons_list, self.buttons_border_list)
             e = ConfigNICFrame.ConfigNICFrame(master)
     
