@@ -1,6 +1,8 @@
 import tkinter as tk
 from PIL import ImageTk,Image
 from tkinter import LEFT, ttk
+import subprocess
+import re
 
 import gui
 from frames import InitFrame
@@ -121,15 +123,41 @@ class ConfigNICFrame:
 
         addr_entry4 = tk.Entry(frame, width= 5, bd=1.5, justify='center', validate="key", validatecommand=vcmd)
         addr_entry4.grid(pady=3, row=num_row, column=7)
-
+        
         list_entries.append(addr_entry1)
         list_entries.append(addr_entry2)
         list_entries.append(addr_entry3)
         list_entries.append(addr_entry4)
         list_entries[0].focus()
     
-    def prueba(self):
-        print(str(self.list_entries1[0].get()) + "." + str(self.list_entries1[1].get()) + "." + str(self.list_entries1[2].get()) + "." + str(self.list_entries1[3].get()))
+    # Get address of corresponding entries
+    def get_address(self, list_entries):
+        return str(list_entries[0].get()) + "." + str(list_entries[1].get()) + "." + str(list_entries[2].get()) + "." + str(list_entries[3].get())
+
+    # Configure static address of a given NIC
+    def set_configuration(self, id):       
+        ip = self.get_address(self.list_entries1)
+        mask = self.get_address(self.list_entries2)
+        gateway = self.get_address(self.list_entries3)
+        dns_server = self.get_address(self.list_entries4)
+        
+        args = [gui.g_list_nic[id], ip, mask, gateway, dns_server]
+        p = subprocess.Popen(['powershell.exe', "-ExecutionPolicy", "Bypass", '.\\scripts\\nic_config.ps1'] + args, stdout=subprocess.PIPE, stderr= subprocess.PIPE)
+        gui.create_progress_bar("Executing command X.", p)
+
+        for line in p.stdout:
+            decoded_line = line.decode('utf-8', errors='replace').strip()
+            clean_line = re.sub('\s+',' ', str(decoded_line))
+            print(clean_line)
+
+    # Clear all entries and restart positions
+    def clear_all_fields(self):
+        for i in range(len(self.list_all_entries)):
+            for e in self.list_all_entries[i]:
+                e.delete(0, tk.END)
+            self.list_positions_entries[i] = 0
+        
+        self.list_all_entries[0][0].focus()
 
     # Display frame for NIC configuration
     def config_nic(self, master, id, res):
@@ -141,14 +169,17 @@ class ConfigNICFrame:
         #title_label = tk.Label(frame, bg='white', text= "Configuration of " +  gui.g_list_nic[id] + " NIC")
         #title_label.grid(pady=5, row=0, column=0)
 
-        self.set_address_menu(frame, "IP address", 0, self.list_entries1)
-        self.set_address_menu(frame, "Subnet mask", 1, self.list_entries2)
-        self.set_address_menu(frame, "Default gateway", 2, self.list_entries3)
-        self.set_address_menu(frame, "DNS server", 3, self.list_entries4)
+        self.set_address_menu(frame, "IP address:", 0, self.list_entries1)
+        self.set_address_menu(frame, "Subnet mask:", 1, self.list_entries2)
+        self.set_address_menu(frame, "Default gateway:", 2, self.list_entries3)
+        self.set_address_menu(frame, "DNS server:", 3, self.list_entries4)
         self.list_all_entries = [self.list_entries1, self.list_entries2, self.list_entries3, self.list_entries4]
 
-        button = tk.Button(frame, text="OK", command = lambda: self.prueba())
-        button.grid(pady=5, row=5, column=0)
+        button1 = tk.Button(frame, text="OK", command = lambda: self.set_configuration(id))
+        button1.grid(pady=5, row=5, column=0)
+
+        button2 = tk.Button(frame, text="Clear all", command = lambda: self.clear_all_fields())
+        button2.grid(pady=5, row=5, column=1)
 
         image2 = Image.open("img/back.png")
         image2 = image2.resize((30, 30), Image.ANTIALIAS)

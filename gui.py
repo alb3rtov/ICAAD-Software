@@ -1,7 +1,6 @@
 import subprocess
 import time
 import platform
-import subprocess
 import re
 import tkinter.font as font
 from tkinter import ttk
