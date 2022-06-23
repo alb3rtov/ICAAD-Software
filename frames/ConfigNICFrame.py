@@ -8,7 +8,9 @@ import gui
 from frames import InitFrame
 
 class ConfigNICFrame:
+    """ Class of NIC configuration frame """
     def __init__(self, master):
+        """ Creates the items that contains main frame """
         geometry = "500x600"
         master.geometry(geometry)
         res = geometry.split("x")
@@ -73,15 +75,18 @@ class ConfigNICFrame:
         self.buttons_border_list.append(self.cmd_button_border)
         self.buttons_list.append(self.cmd_button)
 
-    # Event for mousewheel in scrollbar menus
+    
     def on_mousewheel(self, event):
+        """ Event for mousewheel in scrollbar menus """
         try:
             self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
         except:
             pass
 
-    # Validate address entry format 
+
+    
     def validate(self, num_row, P):
+        """ Validate address entry format """
         if len(P) == 0:
             return True
         elif len(P) == 3 and P.isdigit():
@@ -96,8 +101,9 @@ class ConfigNICFrame:
         else:
             return False
 
-    # Define field to set addresses
+    
     def set_address_menu(self, frame, title, num_row, list_entries):
+        """ Define field to set addresses """
         vcmd = (frame.register(self.validate), num_row, '%P')
         
         addr_label = tk.Label(frame, bg='white', text=title)
@@ -130,12 +136,14 @@ class ConfigNICFrame:
         list_entries.append(addr_entry4)
         list_entries[0].focus()
     
-    # Get address of corresponding entries
+    
     def get_address(self, list_entries):
+        """ Get address of corresponding entries """
         return str(list_entries[0].get()) + "." + str(list_entries[1].get()) + "." + str(list_entries[2].get()) + "." + str(list_entries[3].get())
 
-    # Configure static address of a given NIC
-    def set_configuration(self, id):       
+    
+    def set_configuration(self, id): 
+        """ Configure static address of a given NIC """      
         ip = self.get_address(self.list_entries1)
         mask = self.get_address(self.list_entries2)
         gateway = self.get_address(self.list_entries3)
@@ -150,8 +158,9 @@ class ConfigNICFrame:
             clean_line = re.sub('\s+',' ', str(decoded_line))
             print(clean_line)
 
-    # Clear all entries and restart positions
+    
     def clear_all_fields(self):
+        """ Clear all entries and restart positions """
         for i in range(len(self.list_all_entries)):
             for e in self.list_all_entries[i]:
                 e.delete(0, tk.END)
@@ -159,8 +168,9 @@ class ConfigNICFrame:
         
         self.list_all_entries[0][0].focus()
 
-    # Display frame for NIC configuration
+    
     def config_nic(self, master, id, res):
+        """ Display frame for NIC configuration """
         self.destroy_all_items()
 
         frame = tk.Frame(master, bg='white', width=300, height=300)
@@ -200,8 +210,9 @@ class ConfigNICFrame:
         self.buttons_border_list.append(self.cmd_button_border)
         self.buttons_list.append(self.cmd_button)
 
-    # Destroy all items of this frame
+    
     def destroy_all_items(self):
+        """ Destroy all items of this frame """
         gui.destroy_items(self.buttons_list, self.buttons_border_list)
         self.canvas.destroy()
         self.second_frame.destroy()
@@ -209,12 +220,14 @@ class ConfigNICFrame:
         self.frame.destroy()
         self.icon_label.destroy()
 
-    # Back to config nic menu
+    
     def go_back_config_nic(self, master):
+        """ Back to config nic menu """
         self.destroy_all_items()
         e = ConfigNICFrame(master)
 
-    # Delete items and create previous frame
+    
     def go_back(self, master):
+        """ Delete items and create previous frame """
         self.destroy_all_items()
         e = InitFrame.InitFrame(master) 

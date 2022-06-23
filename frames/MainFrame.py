@@ -7,8 +7,9 @@ import gui
 from frames import InitFrame
 
 class MainFrame:
+    """ Class of main frame """
     def __init__(self, master):
-        # Create frame and buttons of this frame
+        """ Create frame and buttons of this frame """
         master.geometry("500x550")
         frame = tk.Frame(master, bg='white', width=500, height=300)
         frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
@@ -68,7 +69,9 @@ class MainFrame:
                                     self.back_button_border,
                                     self.cmd_button_border]
 
+    
     def ad_check(self):
+        """ Check if machine has Active Directory services installed """
         p = subprocess.Popen(['powershell.exe', "-ExecutionPolicy", "Bypass", '.\\scripts\\adcheck.ps1'], stdout=subprocess.PIPE, stderr= subprocess.PIPE)
         
         gui.create_progress_bar("Executing command Get-WindowsFeature.",p)
@@ -81,10 +84,13 @@ class MainFrame:
         else:
             messagebox.showinfo("Check Active Directory", "Active Directory services are installed on this computer")
 
+
     def ad_configuration(self):
+        """ Shows Active Directory configuration menu """
         print("hola")
     
-    # Delete items and create previous frame
+    
     def go_back(self, master):
+        """ Delete items and create previous frame """
         gui.destroy_items(self.buttons_list, self.buttons_border_list)  
         e = InitFrame.InitFrame(master) 

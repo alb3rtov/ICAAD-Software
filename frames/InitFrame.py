@@ -9,7 +9,9 @@ from frames import MainFrame
 from frames import ConfigNICFrame
 
 class InitFrame:
+    """ Class of init frame """
     def __init__(self, master):
+        """ Creates the items that contains main frame """
         master.geometry("500x600")
         frame = tk.Frame(master, bg='white', width=300, height=300)
         frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
@@ -53,33 +55,38 @@ class InitFrame:
                                     self.button_border4,
                                     self.cmd_button_border]
 
-    # Go to main configuration frame   
+   
     def main_menu(self, master):
+        """ Go to main configuration frame """  
         if(gui.check_system(master)):
             gui.destroy_items(self.buttons_list, self.buttons_border_list)
             e = MainFrame.MainFrame(master)
     
-    # Go to configuration NICs
+    
     def configure_nic(self, master):
+        """ Go to configuration NICs """
         if (gui.check_system(master)):
             gui.get_nics(master)
             gui.destroy_items(self.buttons_list, self.buttons_border_list)
             e = ConfigNICFrame.ConfigNICFrame(master)
     
-    # Exit program function
+    
     def exit_program(self, master):
+        """ Exit program function """
         option = messagebox.askquestion("Exit program","Do you want to exit?")
         if option == "yes":
             sys.exit();
 
-    # Go back of sofware information
+    
     def go_back(self, master):
+        """ Go back of sofware information """
         self.back_button.destroy()
         self.myLabel.destroy()
         e = InitFrame(master)
 
-    # Show software information 
+   
     def software_info(self, master):
+        """ Show software information """
         gui.destroy_items(self.buttons_list, self.buttons_border_list)
         main_font = font.Font(size="14", family="Helvetica")
         self.myLabel = tk.Label(master, 

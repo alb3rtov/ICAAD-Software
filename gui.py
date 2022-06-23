@@ -8,7 +8,7 @@ from tkinter import ttk
 from PIL import ImageTk,Image
 from frames.InitFrame import *
 
-# Global variables
+""" Global variables"""
 g_list_nic = []
 g_dict_osinfo = {}
 g_suitable_os = ["Microsoft Windows Server 2012",
@@ -17,15 +17,17 @@ g_suitable_os = ["Microsoft Windows Server 2012",
                 "Microsoft Windows Server 2022",
                 "Microsoft Windows 10"]
 
-# Main funtions
-# Delete all items of the frame
+
+""" Main funtions"""
 def destroy_items(buttons_list, buttons_border_list):
+    """ Delete all items of the frame"""
     for index in range(0, len(buttons_list)):
         buttons_list[index].destroy()
         buttons_border_list[index].destroy()
 
-# Search in suitable OS list
+
 def check_os_list():
+    """ Search in suitable OS list"""
     suitable_os = False
 
     for os in range(len(g_suitable_os)):
@@ -35,8 +37,9 @@ def check_os_list():
     
     return suitable_os
 
-# Create new next frame menu if system is Windows Server
+
 def check_os(master):
+    """ Create new next frame menu if system is Windows Server """
     suitable_os = False
     if (check_os_list()):
         messagebox.showinfo("Check operating system","Version " + g_dict_osinfo["OsName"] + " is valid")
@@ -46,8 +49,9 @@ def check_os(master):
 
     return suitable_os
 
-# Check if the system is Windows Server
+
 def check_system(master):
+    """ Check if the system is Windows Server """
     suitable_os = False
 
     if len(g_dict_osinfo) == 0:
@@ -79,7 +83,9 @@ def check_system(master):
 
     return suitable_os
 
+
 def get_nics(master):
+    """ Execute cmdlet to get all NICs of the machine """
     if len(g_list_nic) == 0:
         p = subprocess.Popen(['powershell.exe', "-ExecutionPolicy", "Bypass", '.\\scripts\\nics.ps1'], stdout=subprocess.PIPE, stderr= subprocess.PIPE)
         
@@ -98,8 +104,9 @@ def get_nics(master):
             else:
                 skip_title += 1
 
-# Create generic progress bar
+
 def create_progress_bar(text, p):
+    """ Create generic progress bar """
     top = tk.Toplevel()
     top.resizable(False, False)
     top.geometry("400x80")
@@ -137,8 +144,10 @@ def create_progress_bar(text, p):
 
     top.destroy()
 
-# Create a generic button
+
+
 def create_button(master, button_name):
+    """ Create a generic button """
     main_font = font.Font(size="13", family="Helvetica")
 
     button_border = tk.Frame(master, 
@@ -161,15 +170,18 @@ def create_button(master, button_name):
 
     return button_border, button
 
-# Runs cmd.py and destroy GUI frame
+
 def open_cmd(root):
+    """ Runs cmd.py and destroy GUI frame """
     option = messagebox.askquestion("CMD Version","Do you want to open ICAAD CMD version?")
     if option == "yes":
         root.destroy()
         subprocess.run(["python.exe","cmd.py"])
 
-# Define and create main frame
+
+
 def main():
+    """ Define and create main frame """
     root = tk.Tk()
     root.title("ICAAD Software")
     root.iconbitmap("img/icaad.ico")
