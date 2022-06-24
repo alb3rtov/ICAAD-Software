@@ -20,6 +20,8 @@ class ConfigNICFrame:
         self.list_entries3 = []
         self.list_entries4 = []
         self.list_all_entries = []
+        self.address_labels = []
+        self.address_dots = []
         self.list_positions_entries = [0,0,0,0]
 
         self.frame = tk.Frame(master, bg='white', width=300, height=300)
@@ -84,7 +86,6 @@ class ConfigNICFrame:
             pass
 
 
-    
     def validate(self, num_row, P):
         """ Validate address entry format """
         if len(P) == 0:
@@ -111,7 +112,7 @@ class ConfigNICFrame:
 
         addr_entry1 = tk.Entry(frame, width= 5, bd=1.5, justify='center', validate="key", validatecommand=vcmd)
         addr_entry1.grid(pady=3, row=num_row, column=1)
-
+        
         dot1_label = tk.Label(frame, bg='white', text=".")
         dot1_label.grid(pady=3, row=num_row, column=2)
 
@@ -130,6 +131,8 @@ class ConfigNICFrame:
         addr_entry4 = tk.Entry(frame, width= 5, bd=1.5, justify='center', validate="key", validatecommand=vcmd)
         addr_entry4.grid(pady=3, row=num_row, column=7)
         
+        self.address_labels.append(addr_label)
+        self.address_dots.extend([dot1_label, dot2_label, dot3_label])
         list_entries.append(addr_entry1)
         list_entries.append(addr_entry2)
         list_entries.append(addr_entry3)
@@ -156,8 +159,12 @@ class ConfigNICFrame:
         for line in p.stdout:
             decoded_line = line.decode('utf-8', errors='replace').strip()
             clean_line = re.sub('\s+',' ', str(decoded_line))
-            print(clean_line)
-
+            #print(clean_line)
+        
+        if clean_line == "True":
+            tk.messagebox.showinfo(gui.g_list_nic[id], gui.g_list_nic[id] + " NIC has been configured successfully")
+        else:
+            tk.messagebox.showerror(gui.g_list_nic[id], "An error ocurred configuring " + gui.g_list_nic[id] + " NIC")
     
     def clear_all_fields(self):
         """ Clear all entries and restart positions """
@@ -220,10 +227,26 @@ class ConfigNICFrame:
         self.frame.destroy()
         self.icon_label.destroy()
 
-    
+    def delete_config_menu(self):
+        """ Delete all items of NIC config menu """
+        for i in range(4):
+            self.list_entries1[i].destroy()
+            self.list_entries2[i].destroy()
+            self.list_entries3[i].destroy()
+            self.list_entries4[i].destroy()
+
+        for labels in self.address_labels:
+            labels.destroy()
+
+        for dots in self.address_dots:
+            dots.destroy()
+
+
     def go_back_config_nic(self, master):
         """ Back to config nic menu """
+        self.delete_config_menu()
         self.destroy_all_items()
+        
         e = ConfigNICFrame(master)
 
     
